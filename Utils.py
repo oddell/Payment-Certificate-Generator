@@ -3,8 +3,7 @@ import os
 
 from numpy import choose
 
-os.chdir(r"M:\Contracts Folder")
-applicationPath = r"M:\Contracts Folder\Utilities\Application"
+applicationPath = os.environ['APPLICATION_PATH']
 
 class Contract():   
     "To be moved to a utils folder for other apps"
@@ -57,7 +56,7 @@ class Contract():
             for i in range(2):
                 if i == 2:
                     selectionMemory.insert(0,filePath)
-                    with open(applicationPath+"\7 Sub Contractor\Data\contractMemory.txt", "w") as file:
+                    with open(applicationPath+"\Data\contractMemory.txt", "w") as file:
                         file_lines = "\n".join(selectionMemory)
                         file.write(file_lines)
                     

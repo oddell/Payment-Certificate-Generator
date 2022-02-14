@@ -19,6 +19,8 @@ Self-taught VBA to develop a macro that standardized the certificate and reduced
 
 Implemented the macro through multiple mediums, reducing human interaction by 66%.
 
+Further realised automatable components through python console app.
+
 ## Key Features
 
 - Minimises Human Interaction

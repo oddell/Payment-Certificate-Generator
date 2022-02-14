@@ -1,6 +1,15 @@
 # Payment-Certificate-Macro
 
-This macro reduces the generation of payment certificates to its raw inputs.
+Contains Python Console App and VBA Excel Macro
+
+Macro reduces the generation of payment certificates to its raw inputs. Useful for users having low desire to adopt new technology.
+
+Python console app does the same with added features such as:
+
+- Remembering users
+- Searching existing contracts and sub-contractors
+- Automatically fulfilling known information
+- Automatic signing 
 
 ## Motivation
 

@@ -1,8 +1,9 @@
 import sys
 import os
 
-os.chdir(r"M:\Contracts Folder")
-applicationPath = r"M:\Contracts Folder\Utilities"
+
+applicationPath = os.environ['APPLICATION_PATH']
+
 
 import Utils as Utils
 

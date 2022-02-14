@@ -12,9 +12,8 @@ date = today.strftime("%d/%m/%Y")
 
 
 #System Setup
-os.chdir(r"M:\Contracts Folder")
 clear = lambda: os.system('cls')
-applicationPath = r"M:\Contracts Folder\Utilities\Application"
+applicationPath = os.environ['APPLICATION_PATH']
 
 
 class PaymentCertificate():
@@ -65,7 +64,7 @@ class PaymentCertificate():
 
         PaymentCertificate.excelPath = PaymentCertificate.selectedContract.filePath + "/" + companyName + "/" + companyName + ".xlsx"
         os.makedirs(os.path.dirname(PaymentCertificate.excelPath), exist_ok=True)
-        shutil.copyfile(applicationPath + r"\Data\F-122 Subcontract Payment Certificate (Reverse Charge VAT).xlsx", PaymentCertificate.excelPath)
+        shutil.copyfile(applicationPath + r"\Data\Subcontractor Certificate Template.xlsx", PaymentCertificate.excelPath)
 
         wb = openpyxl.load_workbook(PaymentCertificate.excelPath)
         previousSheet = wb["001"]
@@ -157,7 +156,7 @@ class PaymentCertificate():
             newSheet["F"+str(i)] = ""
             newSheet["A"+str(i)] = f"""=IF(F{str(i)}<>"",COUNT($F$22:F{str(i)})+1,"")"""
 
-        img = openpyxl.drawing.image.Image(applicationPath+r'\Images\MildrenLogo.jpg')
+        img = openpyxl.drawing.image.Image(applicationPath+r'\Images\CompanyLogo.png')
         img.anchor = 'A1'
         img.width =  360
         img.height = 60
@@ -196,7 +195,7 @@ class PaymentCertificate():
         print("Sign? \n1 - Yes\n2 - No")
         selection = int(input("Selection: "))
         if selection == 1:
-            img = openpyxl.drawing.image.Image(applicationPath+r'\Images\Signature\MatthewOddell.PNG')
+            img = openpyxl.drawing.image.Image(applicationPath+r'\Images\Signature\JohnSmith.PNG')
             img.anchor = 'C55'
             
             img.width =  135

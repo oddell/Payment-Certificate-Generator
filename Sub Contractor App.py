@@ -17,29 +17,39 @@ applicationPath = os.environ['APPLICATION_PATH']
 
 
 class PaymentCertificate():
-    "Generate a new payment certificate"
+    """"Generate a new payment certificate"""
 
     def __init__(self) -> None:
+
         PaymentCertificate.selectedContract = Contract
         PaymentCertificate.selectedContract.SelPayment(self)
+
         self.SelectCompany()
 
     def SelectCompany(self):
         
         filePath = self.selectedContract.filePath+"/Sub-Contractors/Payments"
         directoryNames = []
+
         for (dirpath, dirnames, filenames) in os.walk(filePath):
                 directoryNames.extend(dirnames)
+
         choices = ""
         for index in range(len(directoryNames)):
             choices += (str(index)+" - "+directoryNames[index]+"\n")
+
         choices += (str(len(directoryNames))+" - New Company \n")
         print(choices)
+
         companySelection = int(input("Selection: "))
         clear()
+
         try:
+            
             filePath = filePath+"/"+directoryNames[companySelection]
+
         except:
+
             filePath
                 
         PaymentCertificate.selectedContract.filePath = filePath
@@ -90,16 +100,21 @@ class PaymentCertificate():
         selection = int(input("Input: "))
         if selection == 1:
             newSheet["H15"] = "GROSS"
+
         elif selection == 2:
             newSheet["H15"] = "20%"
+
         elif selection == 3:
             newSheet["H15"] = "30%"
 
         saved = False
+        
         while saved == False:
+
             try:
                 wb.save(PaymentCertificate.excelPath)
                 saved = True
+                
             except:
                 input("File open, please close then press enter to continue")
         
@@ -118,10 +133,12 @@ class PaymentCertificate():
 
         #Find Previous Payment
         highestValue = 0
+
         for sheet in wb.worksheets:
             value = sheet[paymentNoCell].value
             if value > highestValue:
                 highestValue = value
+
         #DONT FORGET TO MATCH SHEET# TO PAYMENT#
         paymentNo = highestValue+1
         
@@ -183,8 +200,10 @@ class PaymentCertificate():
         print("2 - Next Friday ("+str(nextFriday.strftime("%d/%m/%Y"))+")")
         print("Input - Custom Date (00/00/00)")
         selection = input("Selection or Custom Date: ")
+
         if selection == "1":
             newSheet["C64"] = str((nextFriday- datetime.timedelta(days=7)).strftime("%d/%m/%Y"))
+
         elif selection == "2":
             newSheet["C64"] = str(nextFriday.strftime("%d/%m/%Y"))
         else:
@@ -194,6 +213,7 @@ class PaymentCertificate():
         #Sign?
         print("Sign? \n1 - Yes\n2 - No")
         selection = int(input("Selection: "))
+
         if selection == 1:
             img = openpyxl.drawing.image.Image(applicationPath+r'\Images\Signature\JohnSmith.PNG')
             img.anchor = 'C55'
@@ -205,9 +225,11 @@ class PaymentCertificate():
         #Save
         saved = False
         while saved == False:
+
             try:
                 wb.save(excelPath)
                 saved = True
+
             except:
                 input("File open, please close then press enter to continue")
 
@@ -222,25 +244,27 @@ class Contract():
         #Variables
 
         def Login():
+
             index = -1
             print("Select Name")
+
             for (dirpath, dirnames, filenames) in os.walk(applicationPath+"/Data/Memory"):
                 for fileName in filenames:
                     index += 1
                     print(str(index)+" - "+fileName)
+
                 print(str(len(filenames))+" - New")
                 selection = int(input("Selection: "))
+
                 if selection == len(filenames):
                     loginPath = applicationPath+"/Data/Memory/"+input("Input name ")+".txt"
                     f = open(loginPath, "x")
                     return loginPath
+
                 else:
                     return applicationPath+"/Data/Memory/"+filenames[selection]
 
 
-                        
-                
-        
         loginPath = Login()
         filePath = "\\Contracts Folder"
         memory = open(loginPath, "r")
@@ -248,6 +272,7 @@ class Contract():
         #Recent Payment Choices
         selectionMemory = memory.read()
         selectionMemory = selectionMemory.split("\n")
+
         if len(selectionMemory) > 3:
             selectionMemory.pop()
 
@@ -255,6 +280,7 @@ class Contract():
 
         for index in range(len(selectionMemory)):
                 choices += (str(index)+" - "+selectionMemory[index].rsplit('/', 1)[-1]+"\n")
+
         choices += str(len(selectionMemory))+" - Other"
         print("Recently Selected Contracts")
         print(choices)
@@ -265,17 +291,16 @@ class Contract():
         #All contracts choices
         if selection == len(selectionMemory):
             
-
             for i in range(2):
+
                 if i == 2:
                     selectionMemory.insert(0,filePath)
                     with open(applicationPath+"\Data\contractMemory.txt", "w") as file:
                         file_lines = "\n".join(selectionMemory)
                         file.write(file_lines)
                     
-
                 directoryNames = []
-                directoryPaths = []
+
                 for (dirpath, dirnames, filenames) in os.walk(filePath):
                     directoryNames.extend(dirnames)
                     break
@@ -287,14 +312,18 @@ class Contract():
                 choices = ""
                 for index in range(len(directoryNames)):
                     choices += (str(index)+" - "+directoryNames[index]+"\n")
+
                 print(choices)
                 companySelection = int(input("Selection: "))
+
                 try:
                     filePath = filePath+"/"+directoryNames[companySelection]
+
                 except:
                     x=1
         else:
             filePath = selectionMemory[selection]
+            
         print(filePath)
         Contract.filePath = filePath
              

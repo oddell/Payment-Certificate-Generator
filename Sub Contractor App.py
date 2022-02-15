@@ -63,7 +63,6 @@ class PaymentCertificate():
             self.MakeExistingPayment()    
 
     def MakeNewPayment():
-
         
         print("New Company Name")
         projectNo = ((PaymentCertificate.selectedContract.filePath).rsplit('/' )[2])[0:5]
@@ -241,7 +240,6 @@ class Contract():
     
 
     def SelPayment(self):
-        #Variables
 
         def Login():
 
@@ -323,7 +321,7 @@ class Contract():
                     x=1
         else:
             filePath = selectionMemory[selection]
-            
+
         print(filePath)
         Contract.filePath = filePath
              

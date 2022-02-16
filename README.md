@@ -1,4 +1,4 @@
-# Payment-Certificate-Macro
+# Payment-Certificate-Generator
 
 Contains Python Console App and VBA Excel Macro
 
